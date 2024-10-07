@@ -1,5 +1,8 @@
 package CSC273.CSC372_Portfolio;
 
+import java.io.FileWriter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -34,6 +37,19 @@ public class StudentData {
                 }
             }
             students.add(new Student(userInputGPA, userInputAddress, userInputName));
+        } while (true);
+
+        Collections.sort(students, Comparator.comparing(Student::getName));
+        for (Student s : students) {
+            System.out.println(s.toString());
+        }
+        try (FileWriter writer = new FileWriter("students.txt")) {
+            for (Student s : students) {
+                writer.write(s.toString() + "\n");
+            }
+            System.out.println("Student data written to file.");
+        } catch (Exception e) {
+            System.out.println("Error occured while writing");
         }
     }
 }
